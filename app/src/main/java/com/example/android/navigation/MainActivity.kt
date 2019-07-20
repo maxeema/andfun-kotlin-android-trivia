@@ -24,10 +24,12 @@ import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    
+
+    private lateinit var binding : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         NavigationUI.setupActionBarWithNavController(this, findNavController(R.id.nav_host_fragment))
     }
 
