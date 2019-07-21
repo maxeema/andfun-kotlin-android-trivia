@@ -30,9 +30,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        NavigationUI.setupActionBarWithNavController(this, findNavController(R.id.nav_host_fragment))
+        val navController = findNavController(R.id.nav_host_fragment)
+        NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout)
+        NavigationUI.setupWithNavController(binding.navView, navController)
     }
 
-    override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment).navigateUp()
-    
+    override fun onSupportNavigateUp()
+        = NavigationUI.navigateUp(findNavController(R.id.nav_host_fragment), binding.drawerLayout)
+
 }

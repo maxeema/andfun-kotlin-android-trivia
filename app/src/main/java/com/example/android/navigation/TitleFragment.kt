@@ -26,9 +26,10 @@ class TitleFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater?.inflate(R.menu.overflow_menu, menu)
     }
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return item?.let { NavigationUI.onNavDestinationSelected(it, findNavController()) }
-                ?: super.onOptionsItemSelected(item)
+
+    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+        R.id.aboutFragment -> NavigationUI.onNavDestinationSelected(item, findNavController())
+        else -> super.onOptionsItemSelected(item)
     }
 
 }
