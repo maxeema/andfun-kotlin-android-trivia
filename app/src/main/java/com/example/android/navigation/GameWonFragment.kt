@@ -17,14 +17,12 @@
 package com.example.android.navigation
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.android.navigation.databinding.FragmentGameWonBinding
-
 
 class GameWonFragment : Fragment() {
 
@@ -33,11 +31,26 @@ class GameWonFragment : Fragment() {
         binding.nextMatchButton.setOnClickListener {
             findNavController().navigate(GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
         }
-//        arguments?.apply {
-//            val args = GameWonFragmentArgs.fromBundle(this)
-//            println(args)
-//        }
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.winner_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+        R.id.share -> {
+            val args = GameWonFragmentArgs.fromBundle(this@GameWonFragment.arguments!!)
+            ShareCompat.IntentBuilder.from(activity).apply {
+                setText(getString(R.string.share_success_text, args.numCorrect, args.numQuestions))
+                setType("text/plain")
+                startChooser()
+            }
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
 }
